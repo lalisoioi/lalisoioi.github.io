@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine's Eligibility Quiz</title>
+  <style>
+    body {
+      background-color: #fef9f9;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      padding: 40px;
+    }
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    /* Animation for a correct answer */
+    @keyframes bounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .animate {
+      animation: bounce 1s ease;
+    }
+    /* Final flower effect */
+    .flower {
+      width: 300px;
+      margin-top: 20px;
+      animation: spin 3s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Introduction -->
+  <div id="page1" class="page active">
+    <h1>Welcome!</h1>
+    <p>Since you wish to be my valentine for the year 2025, you have to pass certain eligibility criteria.</p>
+    <button onclick="goToPage(2)">Next Question</button>
+  </div>
+
+  <!-- Page 2: Question 1 -->
+  <div id="page2" class="page">
+    <h2>Question 1: Who loves you?</h2>
+    <button onclick="goToPage(3)">Lalitha</button>
+    <button onclick="goToPage(3)">Lalitha</button>
+  </div>
+
+  <!-- Page 3: Question 2 -->
+  <div id="page3" class="page">
+    <h2>Question 2: Whom do you love?</h2>
+    <button onclick="goToPage(4)">Lalitha</button>
+    <button onclick="goToPage(4)">Lalitha</button>
+  </div>
+
+  <!-- Page 4: Question 3 -->
+  <div id="page4" class="page">
+    <h2>Question 3: What is Lalitha's favourite color?</h2>
+    <button onclick="checkAnswer('Indigo', this)">Indigo</button>
+    <button onclick="checkAnswer('Grey', this)">Grey</button>
+    <button onclick="checkAnswer('Nude', this)">Nude</button>
+    <button onclick="checkAnswer('U', this)">U</button>
+    <p id="feedback" style="color: red;"></p>
+  </div>
+
+  <!-- Result Page: After Correct Answer -->
+  <div id="resultPage" class="page">
+    <h2 id="congratsMessage">Congratulations, you have passed the good bf test!</h2>
+  </div>
+
+  <!-- Final Page: Final Message and Animation -->
+  <div id="finalPage" class="page">
+    <h1>I LOVE YOU GUNDU BABY</h1>
+    <img src="https://media.giphy.com/media/3o7TKxV9Wrm2S6PXq8/giphy.gif" alt="Flower" class="flower">
+  </div>
+
+  <script>
+    // Function to navigate between pages
+    function goToPage(pageNumber) {
+      // Hide all pages
+      let pages = document.getElementsByClassName('page');
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('active');
+      }
+      // Show the selected page
+      document.getElementById('page' + pageNumber).classList.add('active');
+    }
+
+    // Function to check the answer for Question 3
+    function checkAnswer(answer, btn) {
+      if (answer === 'Grey') {
+        // Correct answer: add animation and feedback
+        btn.classList.add('animate');
+        document.getElementById('feedback').innerText = "Correct!";
+        // After 1 second, move to result page with a funny animated effect
+        setTimeout(function() {
+          document.getElementById('page4').classList.remove('active');
+          document.getElementById('resultPage').classList.add('active');
+          document.getElementById('congratsMessage').classList.add('animate');
+          // After 5 seconds, show final page with the final message and flower animation
+          setTimeout(function() {
+            document.getElementById('resultPage').classList.remove('active');
+            document.getElementById('finalPage').classList.add('active');
+          }, 5000);
+        }, 1000);
+      } else {
+        // Incorrect answer: prompt to try again
+        document.getElementById('feedback').innerText = "Wrong answer! Please try again.";
+      }
+    }
+  </script>
+  
+</body>
+</html>
